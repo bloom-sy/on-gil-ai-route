@@ -23,7 +23,7 @@
 ### 처리 파이프라인
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Raw Data] --> B[Spatial Preprocessing]
     B --> C[Feature Engineering]
     C --> D[GMM 군집화]
