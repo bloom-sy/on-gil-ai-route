@@ -33,18 +33,20 @@ Raw Data → Spatial Preprocessing → Feature Engineering
 
 ## 폴더 구조
 
-```
+```text
 ongil/
 ├── backend/
-│   ├── app/                    FastAPI + 경로 계산 로직
+│   ├── app/                         FastAPI + 경로 계산 로직
 │   ├── data/models/.../
-│   │   ├── runtime/             앱 실행용 GPKG·매핑 데이터
-│   │   └── source/               모델링 Notebook·학습 소스
+│   │   ├── runtime/                 앱 실행용 GPKG·매핑 데이터
+│   │   └── source/                  모델링 Notebook·학습 소스
 │   └── tests/
-├── ongil-mobile/
-│   ├── app/                     Expo Router 화면
-│   └── src/                      API·지도·음성 인식 연동
-└── src/ongil/                   연구·데이터 파이프라인
+├── pawsafe-mobile/
+│   ├── app/                         Expo Router 화면
+│   └── src/                         API·지도·음성 인식·GPS 안내
+├── src/pawsafe/                     연구·데이터 파이프라인
+├── scripts/                         설치·통합 검사
+└── tests/                           데이터 파이프라인 테스트
 ```
 
 ## 실행 방법
@@ -56,7 +58,7 @@ uvicorn app.main:app --reload
 ```
 
 ```bash
-cd ongil-mobile
+cd pawsafe-mobile
 npm run build:ios
 npm run ios
 ```
