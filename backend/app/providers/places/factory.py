@@ -1,0 +1,46 @@
+from __future__ import annotations
+
+import httpx
+
+from app.core.config import Settings
+from app.core.errors import PipelineNotReadyError
+from app.providers.places.base import PlaceSearchProvider
+from app.providers.places.catalog_places import CatalogPlaceSearchProvider
+from app.providers.places.kakao_places import KakaoPlaceSearchProvider
+from app.schemas.location import CoordinateInput
+from app.schemas.place import Place
+
+
+class UnavailablePlaceSearchProvider:
+    def __init__(self, component: str) -> None:
+        self._component = component
+
+    async def search(
+        self,
+        query: str,
+        *,
+        origin: CoordinateInput | None = None,
+    ) -> list[Place]:
+        del query, origin
+        raise PipelineNotReadyError(self._component)
+
+    async def reverse_geocode(self, lat: float, lng: float) -> Place:
+        del lat, lng
+        raise PipelineNotReadyError(self._component)
+
+
+def create_place_provider(
+    settings: Settings,
+    client: httpx.AsyncClient,
+) -> PlaceSearchProvider:
+    if settings.place_provider == "catalog":
+        return CatalogPlaceSearchProvider(
+            settings.resolve_path(settings.supported_places_file_path)
+        )
+    if not settings.kakao_rest_api_key:
+        return UnavailablePlaceSearchProvider("kakao_rest_api_key")
+    return KakaoPlaceSearchProvider(
+        client,
+        settings.kakao_rest_api_key,
+        timeout_seconds=settings.place_search_timeout_seconds,
+    )

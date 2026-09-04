@@ -1,0 +1,11 @@
+version: live-weight-v1
+
+modes:
+  fast:
+    id: live-fast-v1
+    alpha: 1.0
+    beta: 0.0
+  cool:
+    id: live-cool-v1
+    alpha: 0.05
+    beta: 0.95

@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: ongil-api
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: ANALYSIS_PROVIDER
+        value: ongil_gmm
+      - key: PLACE_PROVIDER
+        value: catalog
+      - key: COVERAGE_FILE_PATH
+        value: data/exports/coverage.geojson
+      - key: ONGIL_GMM_MODEL_PATH
+        value: data/models/ongil_gmm_0815_1600
+      - key: ROUTE_ANALYSIS_TIMEOUT_SECONDS
+        value: "60"
+      - key: ALLOWED_ORIGINS
+        sync: false
