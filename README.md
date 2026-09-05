@@ -89,6 +89,3 @@ npm run ios
 }
 ```
 
-## Data & License
-
-- 위 파일 참고
